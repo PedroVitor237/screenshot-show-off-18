@@ -94,7 +94,7 @@ function seed(): Db {
     fixtureDiagnosis("f6000000-0000-4000-8000-000000000002", A1, C1, env[0]!.id, "CURRENT", 0.42, "MODERATE", "HIGH", "2026-08-20T09:00:00.000Z", null),
   ];
   return { users, labs, members, areas, collections, env, diagnoses, ops: new Map(), audit: [
-    { id: uid(), at: "2026-09-01T12:00:00.000Z", actor: "Helena Costa", targetId: users[10].id, targetName: "Kleber Alves", field: "status", before: "ACTIVE", after: "BLOCKED", reason: "Tentativas repetidas de acesso indevido." },
+    { id: uid(), at: "2026-09-01T12:00:00.000Z", actor: "Helena Costa", targetId: users[10]!.id, targetName: "Kleber Alves", field: "status", before: "ACTIVE", after: "BLOCKED", reason: "Tentativas repetidas de acesso indevido." },
   ] };
 }
 
