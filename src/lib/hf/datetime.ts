@@ -35,8 +35,8 @@ function parseWall(w: WallTime): Parts | string {
   if (!dm) return "Informe uma data válida.";
   const tm = /^(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?$/.exec(w.time);
   if (!tm) return "Informe uma hora válida (HH:MM:SS).";
-  const y = +dm[1], mo = +dm[2], d = +dm[3];
-  const h = +tm[1], mi = +tm[2], s = tm[3] ? +tm[3] : 0;
+  const y = +dm[1]!, mo = +dm[2]!, d = +dm[3]!;
+  const h = +tm[1]!, mi = +tm[2]!, s = tm[3] ? +tm[3] : 0;
   const msRaw = tm[4] ?? null;
   const ms = msRaw ? Number(msRaw.padEnd(3, "0")) : 0;
   const probe = new Date(Date.UTC(y, mo - 1, d));
@@ -93,7 +93,7 @@ export function formatDeclared(iso: string): string {
   const m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(\.\d+)?(Z|[+-]\d{2}:\d{2})$/.exec(iso);
   if (!m) return iso;
   const [, y, mo, d, h, mi, s, frac, off] = m;
-  const offLabel = off === "Z" ? "UTC" : `UTC${off.replace("-", "−")}`;
+  const offLabel = off === "Z" ? "UTC" : `UTC${off!.replace("-", "−")}`;
   return `${d}/${mo}/${y} às ${h}:${mi}:${s}${frac ?? ""} (${offLabel})`;
 }
 
