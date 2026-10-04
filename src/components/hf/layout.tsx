@@ -70,17 +70,16 @@ export function AppShell({ children }: { children: ReactNode }) {
 }
 
 const NAV = [
-  { to: "", label: "Resumo", icon: LayoutDashboard, exact: true },
-  { to: "/areas", label: "Áreas", icon: Waypoints },
-  { to: "/mapa", label: "Mapa", icon: MapIcon },
-  { to: "/membros", label: "Membros", icon: Users, ownerOnly: true },
+  { to: "/dashboard/laboratories/$labId", label: "Resumo", icon: LayoutDashboard, exact: true },
+  { to: "/dashboard/laboratories/$labId/areas", label: "Áreas", icon: Waypoints },
+  { to: "/dashboard/laboratories/$labId/mapa", label: "Mapa", icon: MapIcon },
+  { to: "/dashboard/laboratories/$labId/membros", label: "Membros", icon: Users, ownerOnly: true },
 ] as const;
 
 export function LabShell({ children }: { children: ReactNode }) {
   const { labId } = useParams({ strict: false }) as { labId: string };
   const lab = useQuery({ queryKey: ["lab", labId], queryFn: () => api.getLab(labId) });
   const [open, setOpen] = useState(false);
-  const base = `/dashboard/laboratories/${labId}`;
   const isOwner = lab.data?.context.role === "OWNER";
 
   const nav = (
@@ -88,8 +87,9 @@ export function LabShell({ children }: { children: ReactNode }) {
       {NAV.filter((n) => !("ownerOnly" in n && n.ownerOnly) || isOwner).map((n) => (
         <Link
           key={n.label}
-          to={`${base}${n.to}` as string}
-          activeOptions={{ exact: n.exact }}
+          to={n.to}
+          params={{ labId }}
+          activeOptions={{ exact: "exact" in n && n.exact }}
           onClick={() => setOpen(false)}
           className="flex min-h-11 items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground"
           activeProps={{ className: "bg-accent text-foreground" }}

@@ -1,6 +1,5 @@
 // Peças de interface compartilhadas da demonstração HidroFlorestas.
 import type { ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
 import { AlertTriangle, Inbox, Loader2, Droplets } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -133,9 +132,9 @@ export function Crumb({ items }: { items: { label: string; to?: string; params?:
           <li key={i} className="flex items-center gap-1">
             {i > 0 ? <span aria-hidden>/</span> : null}
             {it.to ? (
-              <Link to={it.to} params={it.params} className="rounded px-1 py-0.5 hover:text-foreground hover:underline">
+              <a href={it.to} className="rounded px-1 py-0.5 hover:text-foreground hover:underline">
                 {it.label}
-              </Link>
+              </a>
             ) : (
               <span aria-current="page" className="px-1 py-0.5 font-medium text-foreground">
                 {it.label}
