@@ -47,7 +47,7 @@ function seed(): Db {
     u("7d1f2a10-0000-4000-8000-000000000011", "-", "Kleber", "Alves", "kleber@demo.hf", "USER", "BLOCKED"),
     u("7d1f2a10-0000-4000-8000-000000000012", "-", "Larissa", "Moura", "larissa@demo.hf", "DEVELOPER"),
   ];
-  const [ana, bruno, carla, , , fabio, gabi] = users;
+  const [ana, bruno, carla, , , fabio, gabi] = users as [DbUser, DbUser, DbUser, DbUser, DbUser, DbUser, DbUser];
   const L1 = "a1000000-0000-4000-8000-000000000001", L2 = "a1000000-0000-4000-8000-000000000002", L3 = "a1000000-0000-4000-8000-000000000003";
   const labs: DbLab[] = [
     { id: L1, name: "Laboratório de Hidrologia do Semiárido", createdAt: "2026-04-02T13:00:00.000Z", status: "ACTIVE" },
@@ -90,11 +90,11 @@ function seed(): Db {
     { ...envBase, id: "e5000000-0000-4000-8000-000000000005", collectionId: C5, measurementContractVersion: "ihfr-measurement-v1", confirmedAt: "2025-12-05T15:00:00.000Z", readOnly: true },
   ];
   const diagnoses = [
-    fixtureDiagnosis("f6000000-0000-4000-8000-000000000001", A1, C1, env[0].id, "SUPERSEDED", 0.38, "MODERATE", "MEDIUM", "2026-08-15T10:00:00.000Z", "2026-08-20T09:00:00.000Z"),
-    fixtureDiagnosis("f6000000-0000-4000-8000-000000000002", A1, C1, env[0].id, "CURRENT", 0.42, "MODERATE", "HIGH", "2026-08-20T09:00:00.000Z", null),
+    fixtureDiagnosis("f6000000-0000-4000-8000-000000000001", A1, C1, env[0]!.id, "SUPERSEDED", 0.38, "MODERATE", "MEDIUM", "2026-08-15T10:00:00.000Z", "2026-08-20T09:00:00.000Z"),
+    fixtureDiagnosis("f6000000-0000-4000-8000-000000000002", A1, C1, env[0]!.id, "CURRENT", 0.42, "MODERATE", "HIGH", "2026-08-20T09:00:00.000Z", null),
   ];
   return { users, labs, members, areas, collections, env, diagnoses, ops: new Map(), audit: [
-    { id: uid(), at: "2026-09-01T12:00:00.000Z", actor: "Helena Costa", targetId: users[10].id, targetName: "Kleber Alves", field: "status", before: "ACTIVE", after: "BLOCKED", reason: "Tentativas repetidas de acesso indevido." },
+    { id: uid(), at: "2026-09-01T12:00:00.000Z", actor: "Helena Costa", targetId: users[10]!.id, targetName: "Kleber Alves", field: "status", before: "ACTIVE", after: "BLOCKED", reason: "Tentativas repetidas de acesso indevido." },
   ] };
 }
 
@@ -158,7 +158,7 @@ function colIn(labId: string, areaId: string, collectionId: string) {
   return c;
 }
 const pubUser = (u: DbUser) => ({ firstName: u.firstName, lastName: u.lastName, image: null });
-const initials = (u: DbUser) => (u.firstName[0] + u.lastName[0]).toUpperCase();
+const initials = (u: DbUser) => (u.firstName[0]! + u.lastName[0]!).toUpperCase();
 const accessibleLabs = (userId: string) => db().members.filter((m) => m.userId === userId);
 function toCollection(c: DbCollection): Collection {
   const a = db().areas.find((x) => x.id === c.areaId)!;
