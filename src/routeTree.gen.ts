@@ -22,7 +22,11 @@ import { Route as DashboardAdminUsersRouteImport } from './routes/dashboard/admi
 import { Route as DashboardLaboratoriesLabIdRouteImport } from './routes/dashboard/laboratories/$labId'
 import { Route as DashboardLaboratoriesLabIdIndexRouteImport } from './routes/dashboard/laboratories/$labId/index'
 import { Route as DashboardLaboratoriesLabIdAreasRouteImport } from './routes/dashboard/laboratories/$labId/areas'
+import { Route as DashboardLaboratoriesLabIdAreasAreaIdRouteImport } from './routes/dashboard/laboratories/$labId/areas/$areaId'
 import { Route as DashboardLaboratoriesLabIdAreasNewRouteImport } from './routes/dashboard/laboratories/$labId/areas/new'
+import { Route as DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteImport } from './routes/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId'
+import { Route as DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRouteImport } from './routes/dashboard/laboratories/$labId/areas/$areaId/collections/new'
+import { Route as DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRouteImport } from './routes/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId/environmental'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -92,12 +96,41 @@ const DashboardLaboratoriesLabIdAreasRoute =
     path: '/areas',
     getParentRoute: () => DashboardLaboratoriesLabIdRoute,
   } as any)
+const DashboardLaboratoriesLabIdAreasAreaIdRoute =
+  DashboardLaboratoriesLabIdAreasAreaIdRouteImport.update({
+    id: '/$areaId',
+    path: '/$areaId',
+    getParentRoute: () => DashboardLaboratoriesLabIdAreasRoute,
+  } as any)
 const DashboardLaboratoriesLabIdAreasNewRoute =
   DashboardLaboratoriesLabIdAreasNewRouteImport.update({
     id: '/new',
     path: '/new',
     getParentRoute: () => DashboardLaboratoriesLabIdAreasRoute,
   } as any)
+const DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRoute =
+  DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteImport.update(
+    {
+      id: '/collections/$collectionId',
+      path: '/collections/$collectionId',
+      getParentRoute: () => DashboardLaboratoriesLabIdAreasAreaIdRoute,
+    } as any,
+  )
+const DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRoute =
+  DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRouteImport.update({
+    id: '/collections/new',
+    path: '/collections/new',
+    getParentRoute: () => DashboardLaboratoriesLabIdAreasAreaIdRoute,
+  } as any)
+const DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRoute =
+  DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRouteImport.update(
+    {
+      id: '/environmental',
+      path: '/environmental',
+      getParentRoute: () =>
+        DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRoute,
+    } as any,
+  )
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -113,7 +146,11 @@ export interface FileRoutesByFullPath {
   '/dashboard/laboratories/$labId': typeof DashboardLaboratoriesLabIdRouteWithChildren
   '/dashboard/laboratories/$labId/areas': typeof DashboardLaboratoriesLabIdAreasRouteWithChildren
   '/dashboard/laboratories/$labId/': typeof DashboardLaboratoriesLabIdIndexRoute
+  '/dashboard/laboratories/$labId/areas/$areaId': typeof DashboardLaboratoriesLabIdAreasAreaIdRouteWithChildren
   '/dashboard/laboratories/$labId/areas/new': typeof DashboardLaboratoriesLabIdAreasNewRoute
+  '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId': typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteWithChildren
+  '/dashboard/laboratories/$labId/areas/$areaId/collections/new': typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRoute
+  '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId/environmental': typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -128,7 +165,11 @@ export interface FileRoutesByTo {
   '/dashboard/admin/users': typeof DashboardAdminUsersRoute
   '/dashboard/laboratories/$labId/areas': typeof DashboardLaboratoriesLabIdAreasRouteWithChildren
   '/dashboard/laboratories/$labId': typeof DashboardLaboratoriesLabIdIndexRoute
+  '/dashboard/laboratories/$labId/areas/$areaId': typeof DashboardLaboratoriesLabIdAreasAreaIdRouteWithChildren
   '/dashboard/laboratories/$labId/areas/new': typeof DashboardLaboratoriesLabIdAreasNewRoute
+  '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId': typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteWithChildren
+  '/dashboard/laboratories/$labId/areas/$areaId/collections/new': typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRoute
+  '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId/environmental': typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -145,7 +186,11 @@ export interface FileRoutesById {
   '/dashboard/laboratories/$labId': typeof DashboardLaboratoriesLabIdRouteWithChildren
   '/dashboard/laboratories/$labId/areas': typeof DashboardLaboratoriesLabIdAreasRouteWithChildren
   '/dashboard/laboratories/$labId/': typeof DashboardLaboratoriesLabIdIndexRoute
+  '/dashboard/laboratories/$labId/areas/$areaId': typeof DashboardLaboratoriesLabIdAreasAreaIdRouteWithChildren
   '/dashboard/laboratories/$labId/areas/new': typeof DashboardLaboratoriesLabIdAreasNewRoute
+  '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId': typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteWithChildren
+  '/dashboard/laboratories/$labId/areas/$areaId/collections/new': typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRoute
+  '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId/environmental': typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -163,7 +208,11 @@ export interface FileRouteTypes {
     | '/dashboard/laboratories/$labId'
     | '/dashboard/laboratories/$labId/areas'
     | '/dashboard/laboratories/$labId/'
+    | '/dashboard/laboratories/$labId/areas/$areaId'
     | '/dashboard/laboratories/$labId/areas/new'
+    | '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId'
+    | '/dashboard/laboratories/$labId/areas/$areaId/collections/new'
+    | '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId/environmental'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -178,7 +227,11 @@ export interface FileRouteTypes {
     | '/dashboard/admin/users'
     | '/dashboard/laboratories/$labId/areas'
     | '/dashboard/laboratories/$labId'
+    | '/dashboard/laboratories/$labId/areas/$areaId'
     | '/dashboard/laboratories/$labId/areas/new'
+    | '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId'
+    | '/dashboard/laboratories/$labId/areas/$areaId/collections/new'
+    | '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId/environmental'
   id:
     | '__root__'
     | '/'
@@ -194,7 +247,11 @@ export interface FileRouteTypes {
     | '/dashboard/laboratories/$labId'
     | '/dashboard/laboratories/$labId/areas'
     | '/dashboard/laboratories/$labId/'
+    | '/dashboard/laboratories/$labId/areas/$areaId'
     | '/dashboard/laboratories/$labId/areas/new'
+    | '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId'
+    | '/dashboard/laboratories/$labId/areas/$areaId/collections/new'
+    | '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId/environmental'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -300,12 +357,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLaboratoriesLabIdAreasRouteImport
       parentRoute: typeof DashboardLaboratoriesLabIdRoute
     }
+    '/dashboard/laboratories/$labId/areas/$areaId': {
+      id: '/dashboard/laboratories/$labId/areas/$areaId'
+      path: '/$areaId'
+      fullPath: '/dashboard/laboratories/$labId/areas/$areaId'
+      preLoaderRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdRouteImport
+      parentRoute: typeof DashboardLaboratoriesLabIdAreasRoute
+    }
     '/dashboard/laboratories/$labId/areas/new': {
       id: '/dashboard/laboratories/$labId/areas/new'
       path: '/new'
       fullPath: '/dashboard/laboratories/$labId/areas/new'
       preLoaderRoute: typeof DashboardLaboratoriesLabIdAreasNewRouteImport
       parentRoute: typeof DashboardLaboratoriesLabIdAreasRoute
+    }
+    '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId': {
+      id: '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId'
+      path: '/collections/$collectionId'
+      fullPath: '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId'
+      preLoaderRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteImport
+      parentRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdRoute
+    }
+    '/dashboard/laboratories/$labId/areas/$areaId/collections/new': {
+      id: '/dashboard/laboratories/$labId/areas/$areaId/collections/new'
+      path: '/collections/new'
+      fullPath: '/dashboard/laboratories/$labId/areas/$areaId/collections/new'
+      preLoaderRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRouteImport
+      parentRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdRoute
+    }
+    '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId/environmental': {
+      id: '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId/environmental'
+      path: '/environmental'
+      fullPath: '/dashboard/laboratories/$labId/areas/$areaId/collections/$collectionId/environmental'
+      preLoaderRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRouteImport
+      parentRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRoute
     }
   }
 }
@@ -320,12 +405,48 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteChildren {
+  DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRoute
+}
+
+const DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteChildren: DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteChildren =
+  {
+    DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRoute:
+      DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRoute,
+  }
+
+const DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteWithChildren =
+  DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRoute._addFileChildren(
+    DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteChildren,
+  )
+
+interface DashboardLaboratoriesLabIdAreasAreaIdRouteChildren {
+  DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteWithChildren
+  DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRoute
+}
+
+const DashboardLaboratoriesLabIdAreasAreaIdRouteChildren: DashboardLaboratoriesLabIdAreasAreaIdRouteChildren =
+  {
+    DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRoute:
+      DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteWithChildren,
+    DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRoute:
+      DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRoute,
+  }
+
+const DashboardLaboratoriesLabIdAreasAreaIdRouteWithChildren =
+  DashboardLaboratoriesLabIdAreasAreaIdRoute._addFileChildren(
+    DashboardLaboratoriesLabIdAreasAreaIdRouteChildren,
+  )
+
 interface DashboardLaboratoriesLabIdAreasRouteChildren {
+  DashboardLaboratoriesLabIdAreasAreaIdRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdRouteWithChildren
   DashboardLaboratoriesLabIdAreasNewRoute: typeof DashboardLaboratoriesLabIdAreasNewRoute
 }
 
 const DashboardLaboratoriesLabIdAreasRouteChildren: DashboardLaboratoriesLabIdAreasRouteChildren =
   {
+    DashboardLaboratoriesLabIdAreasAreaIdRoute:
+      DashboardLaboratoriesLabIdAreasAreaIdRouteWithChildren,
     DashboardLaboratoriesLabIdAreasNewRoute:
       DashboardLaboratoriesLabIdAreasNewRoute,
   }
