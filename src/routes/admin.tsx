@@ -43,7 +43,7 @@ function AdminBody() {
       />
     );
 
-  const o = overview.data;
+  const o = overview.data!;
   return (
     <>
       <PageHeader

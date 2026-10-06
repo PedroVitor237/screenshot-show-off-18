@@ -13,7 +13,7 @@ const icon = L.icon({
   iconAnchor: [12, 41],
 });
 
-function ClickHandler({ onPick }: { onPick?: (lat: number, lng: number) => void }) {
+function ClickHandler({ onPick }: { onPick?: ((lat: number, lng: number) => void) | undefined }) {
   useMapEvents({
     click(e) {
       onPick?.(e.latlng.lat, e.latlng.lng);

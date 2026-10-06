@@ -27,7 +27,7 @@ function Areas() {
   if (q.isLoading) return <Loading />;
   if (q.isError) return <ErrorState onRetry={() => void q.refetch()} />;
 
-  const { context, areas } = q.data;
+  const { context, areas } = q.data!;
   const canCreate = can(context).createArea;
 
   return (
