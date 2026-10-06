@@ -33,7 +33,7 @@ function NewCollection() {
 
   if (area.isLoading || lab.isLoading) return <Loading />;
   if (area.isError || lab.isError) return <ErrorState onRetry={() => { void area.refetch(); void lab.refetch(); }} />;
-  if (!can(lab.data.context).registerCollection)
+  if (!can(lab.data!.context).registerCollection)
     return <ErrorState title="Somente leitura" description="Este laboratório está inativo ou seu papel não permite registrar coletas." />;
 
   async function confirm(occurredAt: string) {
@@ -52,8 +52,8 @@ function NewCollection() {
 
   return (
     <>
-      <Crumb items={[{ label: "Meus laboratórios", to: "/workspace" }, { label: lab.data.name }, { label: area.data.name, to: `/dashboard/laboratories/${labId}/areas/${areaId}` }, { label: "Nova coleta" }]} />
-      <PageHeader title="Nova coleta" description={`Área: ${area.data.name}`} />
+      <Crumb items={[{ label: "Meus laboratórios", to: "/workspace" }, { label: lab.data!.name }, { label: area.data!.name, to: `/dashboard/laboratories/${labId}/areas/${areaId}` }, { label: "Nova coleta" }]} />
+      <PageHeader title="Nova coleta" description={`Área: ${area.data!.name}`} />
       <OccurredAtForm busy={busy} serverError={error} onConfirm={confirm} />
     </>
   );

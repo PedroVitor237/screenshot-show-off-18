@@ -51,7 +51,7 @@ function Members() {
   if (q.isError)
     return <ErrorState title="Acesso restrito" description="Somente o proprietário do laboratório gerencia membros." />;
 
-  const { context, memberships } = q.data;
+  const { context, memberships } = q.data!;
 
   return (
     <>

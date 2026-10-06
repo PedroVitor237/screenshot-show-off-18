@@ -30,7 +30,7 @@ function NewArea() {
 
   if (lab.isLoading) return <Loading />;
   if (lab.isError) return <ErrorState onRetry={() => void lab.refetch()} />;
-  if (!can(lab.data.context).createArea)
+  if (!can(lab.data!.context).createArea)
     return <ErrorState title="Sem permissão" description="Somente proprietários e administradores cadastram áreas." />;
 
   async function confirm(input: AreaInput) {
@@ -49,7 +49,7 @@ function NewArea() {
 
   return (
     <>
-      <Crumb items={[{ label: "Meus laboratórios", to: "/workspace" }, { label: lab.data.name }, { label: "Áreas", to: `/dashboard/laboratories/${labId}/areas` }, { label: "Nova área" }]} />
+      <Crumb items={[{ label: "Meus laboratórios", to: "/workspace" }, { label: lab.data!.name }, { label: "Áreas", to: `/dashboard/laboratories/${labId}/areas` }, { label: "Nova área" }]} />
       <PageHeader title="Nova área" description="Informe os dados e revise antes de confirmar." />
       <AreaForm busy={busy} serverError={error} onConfirm={confirm} />
     </>

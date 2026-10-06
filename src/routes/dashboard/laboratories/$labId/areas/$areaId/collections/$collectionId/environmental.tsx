@@ -36,7 +36,7 @@ function Environmental() {
   if (env.isError || lab.isError) return <ErrorState onRetry={() => { void env.refetch(); void lab.refetch(); }} />;
 
   const crumbs = (
-    <Crumb items={[{ label: "Meus laboratórios", to: "/workspace" }, { label: lab.data.name }, { label: "Coleta", to: `/dashboard/laboratories/${labId}/areas/${areaId}/collections/${collectionId}` }, { label: "Dados ambientais" }]} />
+    <Crumb items={[{ label: "Meus laboratórios", to: "/workspace" }, { label: lab.data!.name }, { label: "Coleta", to: `/dashboard/laboratories/${labId}/areas/${areaId}/collections/${collectionId}` }, { label: "Dados ambientais" }]} />
   );
 
   if (env.data) {
@@ -77,7 +77,7 @@ function Environmental() {
     );
   }
 
-  if (!can(lab.data.context).registerEnvironmental)
+  if (!can(lab.data!.context).registerEnvironmental)
     return (
       <>
         {crumbs}

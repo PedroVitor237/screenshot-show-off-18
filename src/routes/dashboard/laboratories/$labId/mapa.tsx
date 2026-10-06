@@ -25,7 +25,7 @@ function LabMap() {
   if (q.isLoading) return <Loading label="Carregando mapa…" />;
   if (q.isError) return <ErrorState onRetry={() => void q.refetch()} />;
 
-  const { context, areas } = q.data;
+  const { context, areas } = q.data!;
   const withLocation = areas.filter((a) => a.location !== null);
   const withoutLocation = areas.filter((a) => a.location === null);
 
