@@ -34,8 +34,8 @@ function Login() {
   async function submit(ev: React.FormEvent) {
     ev.preventDefault();
     const errs: Record<string, string> = {};
-    if (!/^\S+@\S+\.\S+$/.test(email)) errs["email = "Informe um e-mail válido.";
-    if (password.length === 0) errs["password = "Informe a senha.";
+    if (!/^\S+@\S+\.\S+$/.test(email)) errs["email"] = "Informe um e-mail válido.";
+    if (password.length === 0) errs["password"] = "Informe a senha.";
     setErrors(errs);
     if (Object.keys(errs).length) {
       emailRef.current?.focus();

@@ -37,16 +37,16 @@ export function AreaForm({ busy, serverError, onConfirm }: Props) {
 
   function validate(): AreaInput | null {
     const errs: Record<string, string> = {};
-    if (name.trim().length < 1 || name.trim().length > 100) errs["name = "Informe um nome entre 1 e 100 caracteres.";
-    if (!hasPoint) errs["lat = "Informe coordenadas válidas (manual, mapa ou localização do dispositivo).";
+    if (name.trim().length < 1 || name.trim().length > 100) errs["name"] = "Informe um nome entre 1 e 100 caracteres.";
+    if (!hasPoint) errs["lat"] = "Informe coordenadas válidas (manual, mapa ou localização do dispositivo).";
     else {
-      if (latN < -90 || latN > 90) errs["lat = "Latitude deve estar entre -90 e 90.";
-      if (lngN < -180 || lngN > 180) errs["lng = "Longitude deve estar entre -180 e 180.";
+      if (latN < -90 || latN > 90) errs["lat"] = "Latitude deve estar entre -90 e 90.";
+      if (lngN < -180 || lngN > 180) errs["lng"] = "Longitude deve estar entre -180 e 180.";
     }
-    if (uf && !/^[A-Za-z]{2}$/.test(uf)) errs["uf = "Use a sigla do estado, ex.: CE.";
+    if (uf && !/^[A-Za-z]{2}$/.test(uf)) errs["uf"] = "Use a sigla do estado, ex.: CE.";
     setErrors(errs);
-    if (errs["name) nameRef.current?.focus();
-    else if (errs["lat) latRef.current?.focus();
+    if (errs["name"]) nameRef.current?.focus();
+    else if (errs["lat"]) latRef.current?.focus();
     if (Object.keys(errs).length) return null;
     return {
       name: name.trim(),
