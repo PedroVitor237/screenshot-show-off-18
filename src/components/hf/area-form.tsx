@@ -37,16 +37,16 @@ export function AreaForm({ busy, serverError, onConfirm }: Props) {
 
   function validate(): AreaInput | null {
     const errs: Record<string, string> = {};
-    if (name.trim().length < 1 || name.trim().length > 100) errs.name = "Informe um nome entre 1 e 100 caracteres.";
-    if (!hasPoint) errs.lat = "Informe coordenadas válidas (manual, mapa ou localização do dispositivo).";
+    if (name.trim().length < 1 || name.trim().length > 100) errs["name"] = "Informe um nome entre 1 e 100 caracteres.";
+    if (!hasPoint) errs["lat"] = "Informe coordenadas válidas (manual, mapa ou localização do dispositivo).";
     else {
-      if (latN < -90 || latN > 90) errs.lat = "Latitude deve estar entre -90 e 90.";
-      if (lngN < -180 || lngN > 180) errs.lng = "Longitude deve estar entre -180 e 180.";
+      if (latN < -90 || latN > 90) errs["lat"] = "Latitude deve estar entre -90 e 90.";
+      if (lngN < -180 || lngN > 180) errs["lng"] = "Longitude deve estar entre -180 e 180.";
     }
-    if (uf && !/^[A-Za-z]{2}$/.test(uf)) errs.uf = "Use a sigla do estado, ex.: CE.";
+    if (uf && !/^[A-Za-z]{2}$/.test(uf)) errs["uf"] = "Use a sigla do estado, ex.: CE.";
     setErrors(errs);
-    if (errs.name) nameRef.current?.focus();
-    else if (errs.lat) latRef.current?.focus();
+    if (errs["name"]) nameRef.current?.focus();
+    else if (errs["lat"]) latRef.current?.focus();
     if (Object.keys(errs).length) return null;
     return {
       name: name.trim(),
@@ -115,15 +115,15 @@ export function AreaForm({ busy, serverError, onConfirm }: Props) {
           <CardTitle className="text-lg">Dados da área</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <Field label="Nome da área" htmlFor="area-name" error={errors.name}>
-            <Input ref={nameRef} id="area-name" className="min-h-11" value={name} onChange={(e) => setName(e.target.value)} aria-invalid={!!errors.name} />
+          <Field label="Nome da área" htmlFor="area-name" error={errors["name"]}>
+            <Input ref={nameRef} id="area-name" className="min-h-11" value={name} onChange={(e) => setName(e.target.value)} aria-invalid={!!errors["name"]} />
           </Field>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Latitude" htmlFor="area-lat" error={errors.lat}>
-              <Input ref={latRef} id="area-lat" inputMode="decimal" className="min-h-11" value={lat} onChange={(e) => setLat(e.target.value)} aria-invalid={!!errors.lat} />
+            <Field label="Latitude" htmlFor="area-lat" error={errors["lat"]}>
+              <Input ref={latRef} id="area-lat" inputMode="decimal" className="min-h-11" value={lat} onChange={(e) => setLat(e.target.value)} aria-invalid={!!errors["lat"]} />
             </Field>
-            <Field label="Longitude" htmlFor="area-lng" error={errors.lng}>
-              <Input id="area-lng" inputMode="decimal" className="min-h-11" value={lng} onChange={(e) => setLng(e.target.value)} aria-invalid={!!errors.lng} />
+            <Field label="Longitude" htmlFor="area-lng" error={errors["lng"]}>
+              <Input id="area-lng" inputMode="decimal" className="min-h-11" value={lng} onChange={(e) => setLng(e.target.value)} aria-invalid={!!errors["lng"]} />
             </Field>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -146,8 +146,8 @@ export function AreaForm({ busy, serverError, onConfirm }: Props) {
             <Field label="Município (opcional)" htmlFor="area-mun">
               <Input id="area-mun" className="min-h-11" value={municipality} onChange={(e) => setMunicipality(e.target.value)} />
             </Field>
-            <Field label="Estado (UF, opcional)" htmlFor="area-uf" error={errors.uf}>
-              <Input id="area-uf" className="min-h-11" maxLength={2} value={uf} onChange={(e) => setUf(e.target.value)} aria-invalid={!!errors.uf} />
+            <Field label="Estado (UF, opcional)" htmlFor="area-uf" error={errors["uf"]}>
+              <Input id="area-uf" className="min-h-11" maxLength={2} value={uf} onChange={(e) => setUf(e.target.value)} aria-invalid={!!errors["uf"]} />
             </Field>
           </div>
           <Field label="Tipo de terra (opcional)" htmlFor="area-land">

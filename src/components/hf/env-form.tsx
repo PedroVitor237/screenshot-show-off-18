@@ -23,8 +23,8 @@ const EMPTY: EnvironmentalInput = {
 };
 
 function num(raw: string): number | null {
-  if (raw.trim() === "") return null;
-  const n = Number(raw.replace(",", "."));
+  if (raw["trim"]() === "") return null;
+  const n = Number(raw["replace"](",", "."));
   return Number.isFinite(n) ? n : Number.NaN;
 }
 
@@ -39,20 +39,20 @@ export function EnvForm({ busy, serverError, onConfirm }: Props) {
 
   function validate(): boolean {
     const errs: Record<string, string> = {};
-    const inf = num(raw.infiltration ?? String(v.soil.infiltrationRateMmPerHour));
-    if (inf === null || Number.isNaN(inf) || inf < 0) errs.infiltration = "Informe um número maior ou igual a zero.";
-    const cover = num(raw.cover ?? String(v.vegetation.vegetationCoverPercent));
-    if (cover === null || Number.isNaN(cover) || cover < 0 || cover > 100) errs.cover = "Informe um percentual entre 0 e 100.";
-    const depth = num(raw.depth ?? "");
-    if (Number.isNaN(depth!) || (depth !== null && depth < 0)) errs.depth = "Profundidade inválida.";
-    const exposed = num(raw.exposed ?? "");
-    if (Number.isNaN(exposed!) || (exposed !== null && (exposed < 0 || exposed > 100))) errs.exposed = "Percentual entre 0 e 100.";
-    const drain = num(raw.drain ?? "");
-    if (Number.isNaN(drain!) || (drain !== null && drain < 0)) errs.drain = "Valor inválido.";
-    const elev = num(raw.elev ?? "");
-    if (Number.isNaN(elev!)) errs.elev = "Valor inválido.";
-    const slope = num(raw.slope ?? "");
-    if (Number.isNaN(slope!) || (slope !== null && (slope < 0 || slope > 100))) errs.slope = "Declividade entre 0 e 100%.";
+    const inf = num(raw["infiltration"] ?? String(v.soil.infiltrationRateMmPerHour));
+    if (inf === null || Number.isNaN(inf) || inf < 0) errs["infiltration"] = "Informe um número maior ou igual a zero.";
+    const cover = num(raw["cover"] ?? String(v.vegetation.vegetationCoverPercent));
+    if (cover === null || Number.isNaN(cover) || cover < 0 || cover > 100) errs["cover"] = "Informe um percentual entre 0 e 100.";
+    const depth = num(raw["depth"] ?? "");
+    if (Number.isNaN(depth!) || (depth !== null && depth < 0)) errs["depth"] = "Profundidade inválida.";
+    const exposed = num(raw["exposed"] ?? "");
+    if (Number.isNaN(exposed!) || (exposed !== null && (exposed < 0 || exposed > 100))) errs["exposed"] = "Percentual entre 0 e 100.";
+    const drain = num(raw["drain"] ?? "");
+    if (Number.isNaN(drain!) || (drain !== null && drain < 0)) errs["drain"] = "Valor inválido.";
+    const elev = num(raw["elev"] ?? "");
+    if (Number.isNaN(elev!)) errs["elev"] = "Valor inválido.";
+    const slope = num(raw["slope"] ?? "");
+    if (Number.isNaN(slope!) || (slope !== null && (slope < 0 || slope > 100))) errs["slope"] = "Declividade entre 0 e 100%.";
     setErrors(errs);
     if (Object.keys(errs).length) {
       document.getElementById(`env-${Object.keys(errs)[0]}`)?.focus();
@@ -80,27 +80,27 @@ export function EnvForm({ busy, serverError, onConfirm }: Props) {
           <Group title="Água" rows={[
             ["Fonte de água", WATER_SOURCE[v.water.waterSourceType]],
             ["Há nascente", v.water.hasSpring ? "Sim" : "Não"],
-            ["Profundidade do poço (m)", v.water.wellDepthMeters === null ? na : nf2(v.water.wellDepthMeters)],
+            ["Profundidade do poço (m)", v.water.wellDepthMeters === null ? na : nf2.format(v.water.wellDepthMeters)],
             ["Disponibilidade", WATER_AVAILABILITY[v.water.waterAvailability]],
             ["Salinidade", v.water.salinityIndicator === null ? na : SALINITY[v.water.salinityIndicator]],
           ]} />
           <Group title="Solo" rows={[
             ["Textura", SOIL_TEXTURE[v.soil.soilTexture]],
-            ["Infiltração (mm/h)", nf2(v.soil.infiltrationRateMmPerHour)],
+            ["Infiltração (mm/h)", nf2.format(v.soil.infiltrationRateMmPerHour)],
             ["Compactação", LEVEL_M[v.soil.compactionLevel]],
             ["Erosão", EROSION[v.soil.erosionSigns]],
-            ["Solo exposto (%)", v.soil.soilExposedPercent === null ? na : nf2(v.soil.soilExposedPercent)],
+            ["Solo exposto (%)", v.soil.soilExposedPercent === null ? na : nf2.format(v.soil.soilExposedPercent)],
           ]} />
           <Group title="Vegetação" rows={[
-            ["Cobertura vegetal (%)", nf2(v.vegetation.vegetationCoverPercent)],
+            ["Cobertura vegetal (%)", nf2.format(v.vegetation.vegetationCoverPercent)],
             ["Fragmentação", LEVEL_F[v.vegetation.fragmentationLevel]],
             ["APP ripária", simNao(v.vegetation.hasRiparianApp)],
             ["Degradação da paisagem", LEVEL_F[v.vegetation.landscapeDegradation]],
           ]} />
           <Group title="Terreno" rows={[
-            ["Densidade de drenagem (km/km²)", v.terrain.drainageDensityKmPerKm2 === null ? na : nf2(v.terrain.drainageDensityKmPerKm2)],
-            ["Elevação (m)", v.terrain.elevationMeters === null ? na : nf2(v.terrain.elevationMeters)],
-            ["Declividade (%)", v.terrain.slopePercent === null ? na : nf2(v.terrain.slopePercent)],
+            ["Densidade de drenagem (km/km²)", v.terrain.drainageDensityKmPerKm2 === null ? na : nf2.format(v.terrain.drainageDensityKmPerKm2)],
+            ["Elevação (m)", v.terrain.elevationMeters === null ? na : nf2.format(v.terrain.elevationMeters)],
+            ["Declividade (%)", v.terrain.slopePercent === null ? na : nf2.format(v.terrain.slopePercent)],
           ]} />
           {serverError ? (
             <p role="alert" className="rounded-lg bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">{serverError}</p>
@@ -133,8 +133,8 @@ export function EnvForm({ busy, serverError, onConfirm }: Props) {
               <SelectContent>{Object.entries(WATER_AVAILABILITY).map(([k, l]) => <SelectItem key={k} value={k}>{l}</SelectItem>)}</SelectContent>
             </Select>
           </Field>
-          <Field label="Profundidade do poço (m, opcional)" htmlFor="env-depth" error={errors.depth}>
-            <Input id="env-depth" inputMode="decimal" className="min-h-11" value={raw.depth ?? ""} onChange={(e) => setRaw({ ...raw, depth: e.target.value })} aria-invalid={!!errors.depth} />
+          <Field label="Profundidade do poço (m, opcional)" htmlFor="env-depth" error={errors["depth"]}>
+            <Input id="env-depth" inputMode="decimal" className="min-h-11" value={raw["depth"] ?? ""} onChange={(e) => setRaw({ ...raw, depth: e.target.value })} aria-invalid={!!errors["depth"]} />
           </Field>
           <Field label="Indicador de salinidade (opcional)" htmlFor="env-sal">
             <Select value={v.water.salinityIndicator ?? "NONE_SET"} onValueChange={(x) => set("water", "salinityIndicator", x === "NONE_SET" ? null : (x as NonNullable<typeof v.water.salinityIndicator>))}>
@@ -161,8 +161,8 @@ export function EnvForm({ busy, serverError, onConfirm }: Props) {
               <SelectContent>{Object.entries(SOIL_TEXTURE).map(([k, l]) => <SelectItem key={k} value={k}>{l}</SelectItem>)}</SelectContent>
             </Select>
           </Field>
-          <Field label="Infiltração (mm/h)" htmlFor="env-infiltration" error={errors.infiltration}>
-            <Input id="env-infiltration" inputMode="decimal" className="min-h-11" value={raw.infiltration ?? ""} onChange={(e) => setRaw({ ...raw, infiltration: e.target.value })} aria-invalid={!!errors.infiltration} />
+          <Field label="Infiltração (mm/h)" htmlFor="env-infiltration" error={errors["infiltration"]}>
+            <Input id="env-infiltration" inputMode="decimal" className="min-h-11" value={raw["infiltration"] ?? ""} onChange={(e) => setRaw({ ...raw, infiltration: e.target.value })} aria-invalid={!!errors["infiltration"]} />
           </Field>
           <Field label="Compactação" htmlFor="env-compaction">
             <Select value={v.soil.compactionLevel} onValueChange={(x) => set("soil", "compactionLevel", x as typeof v.soil.compactionLevel)}>
@@ -176,8 +176,8 @@ export function EnvForm({ busy, serverError, onConfirm }: Props) {
               <SelectContent>{Object.entries(EROSION).map(([k, l]) => <SelectItem key={k} value={k}>{l}</SelectItem>)}</SelectContent>
             </Select>
           </Field>
-          <Field label="Solo exposto (%, opcional)" htmlFor="env-exposed" error={errors.exposed}>
-            <Input id="env-exposed" inputMode="decimal" className="min-h-11" value={raw.exposed ?? ""} onChange={(e) => setRaw({ ...raw, exposed: e.target.value })} aria-invalid={!!errors.exposed} />
+          <Field label="Solo exposto (%, opcional)" htmlFor="env-exposed" error={errors["exposed"]}>
+            <Input id="env-exposed" inputMode="decimal" className="min-h-11" value={raw["exposed"] ?? ""} onChange={(e) => setRaw({ ...raw, exposed: e.target.value })} aria-invalid={!!errors["exposed"]} />
           </Field>
         </CardContent>
       </Card>
@@ -185,8 +185,8 @@ export function EnvForm({ busy, serverError, onConfirm }: Props) {
       <Card className="rounded-card shadow-soft">
         <CardHeader><CardTitle className="text-lg">Vegetação</CardTitle></CardHeader>
         <CardContent className="grid gap-4 sm:grid-cols-2">
-          <Field label="Cobertura vegetal (%)" htmlFor="env-cover" error={errors.cover}>
-            <Input id="env-cover" inputMode="decimal" className="min-h-11" value={raw.cover ?? ""} onChange={(e) => setRaw({ ...raw, cover: e.target.value })} aria-invalid={!!errors.cover} />
+          <Field label="Cobertura vegetal (%)" htmlFor="env-cover" error={errors["cover"]}>
+            <Input id="env-cover" inputMode="decimal" className="min-h-11" value={raw["cover"] ?? ""} onChange={(e) => setRaw({ ...raw, cover: e.target.value })} aria-invalid={!!errors["cover"]} />
           </Field>
           <Field label="Fragmentação" htmlFor="env-frag">
             <Select value={v.vegetation.fragmentationLevel} onValueChange={(x) => set("vegetation", "fragmentationLevel", x as typeof v.vegetation.fragmentationLevel)}>
@@ -216,14 +216,14 @@ export function EnvForm({ busy, serverError, onConfirm }: Props) {
       <Card className="rounded-card shadow-soft">
         <CardHeader><CardTitle className="text-lg">Terreno</CardTitle></CardHeader>
         <CardContent className="grid gap-4 sm:grid-cols-3">
-          <Field label="Densidade de drenagem (km/km²)" htmlFor="env-drain" error={errors.drain}>
-            <Input id="env-drain" inputMode="decimal" className="min-h-11" value={raw.drain ?? ""} onChange={(e) => setRaw({ ...raw, drain: e.target.value })} aria-invalid={!!errors.drain} />
+          <Field label="Densidade de drenagem (km/km²)" htmlFor="env-drain" error={errors["drain"]}>
+            <Input id="env-drain" inputMode="decimal" className="min-h-11" value={raw["drain"] ?? ""} onChange={(e) => setRaw({ ...raw, drain: e.target.value })} aria-invalid={!!errors["drain"]} />
           </Field>
-          <Field label="Elevação (m)" htmlFor="env-elev" error={errors.elev}>
-            <Input id="env-elev" inputMode="decimal" className="min-h-11" value={raw.elev ?? ""} onChange={(e) => setRaw({ ...raw, elev: e.target.value })} aria-invalid={!!errors.elev} />
+          <Field label="Elevação (m)" htmlFor="env-elev" error={errors["elev"]}>
+            <Input id="env-elev" inputMode="decimal" className="min-h-11" value={raw["elev"] ?? ""} onChange={(e) => setRaw({ ...raw, elev: e.target.value })} aria-invalid={!!errors["elev"]} />
           </Field>
-          <Field label="Declividade (%)" htmlFor="env-slope" error={errors.slope} hint="Necessária para o diagnóstico experimental.">
-            <Input id="env-slope" inputMode="decimal" className="min-h-11" value={raw.slope ?? ""} onChange={(e) => setRaw({ ...raw, slope: e.target.value })} aria-invalid={!!errors.slope} />
+          <Field label="Declividade (%)" htmlFor="env-slope" error={errors["slope"]} hint="Necessária para o diagnóstico experimental.">
+            <Input id="env-slope" inputMode="decimal" className="min-h-11" value={raw["slope"] ?? ""} onChange={(e) => setRaw({ ...raw, slope: e.target.value })} aria-invalid={!!errors["slope"]} />
           </Field>
         </CardContent>
       </Card>

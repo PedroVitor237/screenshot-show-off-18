@@ -105,12 +105,13 @@ function UsersBody() {
       />
     );
 
-  const totalPages = Math.max(1, Math.ceil(users.data.total / users.data.pageSize));
+  const udata = users.data!;
+  const totalPages = Math.max(1, Math.ceil(udata.total / udata.pageSize));
 
   return (
     <>
       <Crumb items={[{ label: "Administração", to: "/admin" }, { label: "Contas" }]} />
-      <PageHeader title="Contas" description={`${users.data.total} conta(s) encontradas.`} />
+      <PageHeader title="Contas" description={`${udata.total} conta(s) encontradas.`} />
 
       <div className="mb-4 grid gap-3 sm:grid-cols-[1fr_180px_180px]">
         <div className="relative">
@@ -151,7 +152,7 @@ function UsersBody() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {users.data.users.map((u) => (
+              {udata.users.map((u) => (
                 <TableRow key={u.id} className="cursor-pointer" onClick={() => { setSelected(u); setEdit(null); setError(null); }}>
                   <TableCell className="font-medium">{u.name}</TableCell>
                   <TableCell className="hidden sm:table-cell">{u.email}</TableCell>
@@ -181,21 +182,21 @@ function UsersBody() {
         ) : audit.isError ? null : (
           <>
             <ul className="space-y-2">
-              {audit.data.items.map((a) => (
+              {audit.data!.items.map((a) => (
                 <li key={a.id} className="rounded-lg border bg-card px-4 py-3 text-sm shadow-soft">
                   <span className="font-medium">{a.actor}</span> alterou {a.field === "role" ? "o papel" : "o estado"} de{" "}
                   <span className="font-medium">{a.targetName}</span>: {a.before} → {a.after}.{" "}
                   <span className="text-muted-foreground">Motivo: {a.reason} · {new Date(a.at).toLocaleString("pt-BR")}</span>
                 </li>
               ))}
-              {audit.data.items.length === 0 ? <li className="text-sm text-muted-foreground">Nenhum registro ainda.</li> : null}
+              {audit.data!.items.length === 0 ? <li className="text-sm text-muted-foreground">Nenhum registro ainda.</li> : null}
             </ul>
             <div className="mt-3 flex items-center gap-2">
               <Button variant="outline" className="min-h-11" disabled={auditPage === 0} onClick={() => setAuditPage(auditPage - 1)}>Anterior</Button>
               <Button
                 variant="outline"
                 className="min-h-11"
-                disabled={(auditPage + 1) * audit.data.pageSize >= audit.data.total}
+                disabled={(auditPage + 1) * audit.data!.pageSize >= audit.data!.total}
                 onClick={() => setAuditPage(auditPage + 1)}
               >
                 Próxima

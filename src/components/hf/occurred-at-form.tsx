@@ -23,13 +23,13 @@ export function OccurredAtForm({ onConfirm, busy, serverError }: Props) {
   function validate(): string | null {
     const errs: Record<string, string> = {};
     const off = parseOffset(offset);
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(wall.date)) errs.date = "Informe uma data válida.";
-    if (!/^\d{2}:\d{2}(:\d{2})?$/.test(wall.time)) errs.time = "Informe uma hora válida (HH:MM:SS).";
-    if (!off.ok) errs.offset = off.error;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(wall.date)) errs["date"] = "Informe uma data válida.";
+    if (!/^\d{2}:\d{2}(:\d{2})?$/.test(wall.time)) errs["time"] = "Informe uma hora válida (HH:MM:SS).";
+    if (!off.ok) errs["offset"] = off.error;
     const iso = typeof toRFC3339(wall, off.ok ? off.minutes : 0) === "string" ? (toRFC3339(wall, off.ok ? off.minutes : 0) as string) : null;
-    if (iso === null && !errs.date && !errs.time) errs.date = "Esta data não existe no calendário.";
+    if (iso === null && !errs["date"] && !errs["time"]) errs["date"] = "Esta data não existe no calendário.";
     const inst = off.ok ? instantOf(wall, off.minutes) : null;
-    if (inst !== null && inst > Date.now()) errs.date = "A coleta não pode ser no futuro.";
+    if (inst !== null && inst > Date.now()) errs["date"] = "A coleta não pode ser no futuro.";
     setErrors(errs);
     const first = ["date", "time", "offset"].find((k) => errs[k]) as keyof typeof refs | undefined;
     if (first) {
@@ -88,14 +88,14 @@ export function OccurredAtForm({ onConfirm, busy, serverError }: Props) {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid gap-4 sm:grid-cols-3">
-          <Field label="Data" htmlFor="occ-date" error={errors.date}>
-            <Input ref={refs.date} id="occ-date" type="date" className="min-h-11" value={wall.date} onChange={(e) => setWall({ ...wall, date: e.target.value })} aria-invalid={!!errors.date} />
+          <Field label="Data" htmlFor="occ-date" error={errors["date"]}>
+            <Input ref={refs.date} id="occ-date" type="date" className="min-h-11" value={wall.date} onChange={(e) => setWall({ ...wall, date: e.target.value })} aria-invalid={!!errors["date"]} />
           </Field>
-          <Field label="Hora" htmlFor="occ-time" error={errors.time} hint="Com segundos, ex.: 14:35:00">
-            <Input ref={refs.time} id="occ-time" type="time" step={1} className="min-h-11" value={wall.time} onChange={(e) => setWall({ ...wall, time: e.target.value })} aria-invalid={!!errors.time} />
+          <Field label="Hora" htmlFor="occ-time" error={errors["time"]} hint="Com segundos, ex.: 14:35:00">
+            <Input ref={refs.time} id="occ-time" type="time" step={1} className="min-h-11" value={wall.time} onChange={(e) => setWall({ ...wall, time: e.target.value })} aria-invalid={!!errors["time"]} />
           </Field>
-          <Field label="Fuso (offset)" htmlFor="occ-offset" error={errors.offset} hint="Formato ±HH:MM, ex.: -03:00">
-            <Input ref={refs.offset} id="occ-offset" className="min-h-11" value={offset} onChange={(e) => setOffset(e.target.value)} aria-invalid={!!errors.offset} />
+          <Field label="Fuso (offset)" htmlFor="occ-offset" error={errors["offset"]} hint="Formato ±HH:MM, ex.: -03:00">
+            <Input ref={refs.offset} id="occ-offset" className="min-h-11" value={offset} onChange={(e) => setOffset(e.target.value)} aria-invalid={!!errors["offset"]} />
           </Field>
         </div>
         {suggestions.length > 0 ? (

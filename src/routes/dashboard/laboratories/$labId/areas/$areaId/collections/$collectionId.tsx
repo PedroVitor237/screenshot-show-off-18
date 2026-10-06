@@ -30,7 +30,7 @@ function CollectionDetail() {
   if (col.isLoading || lab.isLoading) return <Loading />;
   if (col.isError || lab.isError) return <ErrorState onRetry={() => { void col.refetch(); void lab.refetch(); }} />;
 
-  const c = col.data;
+  const c = col.data!;
 
   return (
     <>
@@ -63,7 +63,7 @@ function CollectionDetail() {
             </Button>
           </CardContent>
         </Card>
-        <IhfrSection labId={labId} areaId={areaId} collectionId={collectionId} ctx={lab.data.context} />
+        <IhfrSection labId={labId} areaId={areaId} collectionId={collectionId} ctx={lab.data!.context} />
       </div>
     </>
   );

@@ -27,6 +27,7 @@ export function DemoPanel() {
     setBusy(true);
     try {
       await api.signIn({ email: p.email, password: "demo" });
+      setScenario({ panelOpen: false });
       navigate({ to: "/workspace" });
     } finally {
       setBusy(false);

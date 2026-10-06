@@ -30,7 +30,7 @@ function AreaDetail() {
   if (area.isLoading) return <Loading />;
   if (area.isError) return <ErrorState onRetry={() => void area.refetch()} />;
 
-  const a = area.data;
+  const a = area.data!;
   const ctx = { laboratory: a.laboratory, role: "MEMBER" as const, readOnly: a.readOnly };
   const labCtx = map.data?.context ?? ctx;
   const canCollect = can(labCtx).registerCollection;
