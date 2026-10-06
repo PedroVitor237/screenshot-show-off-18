@@ -84,7 +84,7 @@ function WorkspaceBody() {
   if (labs.isError)
     return <ErrorState description="Falha de rede ao listar os laboratórios." onRetry={() => void labs.refetch()} />;
 
-  const list = labs.data;
+  const list = labs.data ?? [];
   const atLimit = list.length >= LIMIT;
 
   return (

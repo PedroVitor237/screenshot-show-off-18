@@ -50,27 +50,27 @@ function Environmental() {
           <Group title="Água" rows={[
             ["Fonte de água", WATER_SOURCE[e.water.waterSourceType]],
             ["Há nascente", e.water.hasSpring ? "Sim" : "Não"],
-            ["Profundidade do poço (m)", e.water.wellDepthMeters === null ? na : nf2(e.water.wellDepthMeters)],
+            ["Profundidade do poço (m)", e.water.wellDepthMeters === null ? na : nf2.format(e.water.wellDepthMeters)],
             ["Disponibilidade", WATER_AVAILABILITY[e.water.waterAvailability]],
             ["Salinidade", e.water.salinityIndicator === null ? na : SALINITY[e.water.salinityIndicator]],
           ]} />
           <Group title="Solo" rows={[
             ["Textura", SOIL_TEXTURE[e.soil.soilTexture]],
-            ["Infiltração (mm/h)", nf2(e.soil.infiltrationRateMmPerHour)],
+            ["Infiltração (mm/h)", nf2.format(e.soil.infiltrationRateMmPerHour)],
             ["Compactação", LEVEL_M[e.soil.compactionLevel]],
             ["Erosão", EROSION[e.soil.erosionSigns]],
-            ["Solo exposto (%)", e.soil.soilExposedPercent === null ? na : nf2(e.soil.soilExposedPercent)],
+            ["Solo exposto (%)", e.soil.soilExposedPercent === null ? na : nf2.format(e.soil.soilExposedPercent)],
           ]} />
           <Group title="Vegetação" rows={[
-            ["Cobertura vegetal (%)", nf2(e.vegetation.vegetationCoverPercent)],
+            ["Cobertura vegetal (%)", nf2.format(e.vegetation.vegetationCoverPercent)],
             ["Fragmentação", LEVEL_F[e.vegetation.fragmentationLevel]],
             ["APP ripária", e.vegetation.hasRiparianApp === null ? na : e.vegetation.hasRiparianApp ? "Sim" : "Não"],
             ["Degradação da paisagem", LEVEL_F[e.vegetation.landscapeDegradation]],
           ]} />
           <Group title="Terreno" rows={[
-            ["Densidade de drenagem (km/km²)", e.terrain.drainageDensityKmPerKm2 === null ? na : nf2(e.terrain.drainageDensityKmPerKm2)],
-            ["Elevação (m)", e.terrain.elevationMeters === null ? na : nf2(e.terrain.elevationMeters)],
-            ["Declividade (%)", e.terrain.slopePercent === null ? na : nf2(e.terrain.slopePercent)],
+            ["Densidade de drenagem (km/km²)", e.terrain.drainageDensityKmPerKm2 === null ? na : nf2.format(e.terrain.drainageDensityKmPerKm2)],
+            ["Elevação (m)", e.terrain.elevationMeters === null ? na : nf2.format(e.terrain.elevationMeters)],
+            ["Declividade (%)", e.terrain.slopePercent === null ? na : nf2.format(e.terrain.slopePercent)],
           ]} />
         </div>
       </>

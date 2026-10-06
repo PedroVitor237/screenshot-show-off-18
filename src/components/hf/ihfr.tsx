@@ -118,7 +118,7 @@ export function IhfrSection({ labId, areaId, collectionId, ctx }: Props) {
         {d ? (
           <div className="space-y-3 rounded-lg border p-4">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-2xl font-semibold">{nf2(d.displayScore)}</span>
+              <span className="text-2xl font-semibold">{nf2.format(d.displayScore)}</span>
               <Badge variant="secondary">{IHFR_CLASS[d.ihfrClass]}</Badge>
               <Badge variant="outline">{LIFECYCLE[d.lifecycleState]}</Badge>
               <Badge variant="outline">Qualidade: {DATA_QUALITY[d.dataQuality]}</Badge>
@@ -128,7 +128,7 @@ export function IhfrSection({ labId, areaId, collectionId, ctx }: Props) {
               {(Object.keys(COMPONENT) as (keyof typeof COMPONENT)[]).map((k) => (
                 <div key={k} className="rounded-lg bg-secondary px-3 py-2">
                   <span className="block text-xs text-muted-foreground">{COMPONENT[k]}</span>
-                  <span className="font-medium">{nf2(d.componentScores[k])}</span>
+                  <span className="font-medium">{nf2.format(d.componentScores[k])}</span>
                 </div>
               ))}
             </div>

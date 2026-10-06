@@ -71,18 +71,18 @@ function Register() {
             <CardContent>
               <form onSubmit={submit} className="space-y-4" noValidate>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Field label="Nome" htmlFor="reg-first" error={errors.firstName}>
-                    <Input ref={firstRef} id="reg-first" autoComplete="given-name" className="min-h-11" value={firstName} onChange={(e) => setFirstName(e.target.value)} aria-invalid={!!errors.firstName} />
+                  <Field label="Nome" htmlFor="reg-first" error={errors["firstName"]}>
+                    <Input ref={firstRef} id="reg-first" autoComplete="given-name" className="min-h-11" value={firstName} onChange={(e) => setFirstName(e.target.value)} aria-invalid={!!errors["firstName"]} />
                   </Field>
-                  <Field label="Sobrenome" htmlFor="reg-last" error={errors.lastName}>
-                    <Input id="reg-last" autoComplete="family-name" className="min-h-11" value={lastName} onChange={(e) => setLastName(e.target.value)} aria-invalid={!!errors.lastName} />
+                  <Field label="Sobrenome" htmlFor="reg-last" error={errors["lastName"]}>
+                    <Input id="reg-last" autoComplete="family-name" className="min-h-11" value={lastName} onChange={(e) => setLastName(e.target.value)} aria-invalid={!!errors["lastName"]} />
                   </Field>
                 </div>
-                <Field label="E-mail" htmlFor="reg-email" error={errors.email}>
-                  <Input id="reg-email" type="email" autoComplete="email" className="min-h-11" value={email} onChange={(e) => setEmail(e.target.value)} aria-invalid={!!errors.email} />
+                <Field label="E-mail" htmlFor="reg-email" error={errors["email"]}>
+                  <Input id="reg-email" type="email" autoComplete="email" className="min-h-11" value={email} onChange={(e) => setEmail(e.target.value)} aria-invalid={!!errors["email"]} />
                 </Field>
-                <Field label="Senha" htmlFor="reg-password" error={errors.password} hint="Mínimo de 8 caracteres.">
-                  <Input id="reg-password" type="password" autoComplete="new-password" className="min-h-11" value={password} onChange={(e) => setPassword(e.target.value)} aria-invalid={!!errors.password} />
+                <Field label="Senha" htmlFor="reg-password" error={errors["password"]} hint="Mínimo de 8 caracteres.">
+                  <Input id="reg-password" type="password" autoComplete="new-password" className="min-h-11" value={password} onChange={(e) => setPassword(e.target.value)} aria-invalid={!!errors["password"]} />
                 </Field>
                 {serverError ? (
                   <p role="alert" className="rounded-lg bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">{serverError}</p>

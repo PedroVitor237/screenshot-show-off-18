@@ -66,11 +66,11 @@ function Login() {
             </CardHeader>
             <CardContent>
               <form onSubmit={submit} className="space-y-4" noValidate>
-                <Field label="E-mail" htmlFor="login-email" error={errors.email} hint="Demonstração: use um e-mail do painel, ex.: ana@demo.hf">
-                  <Input ref={emailRef} id="login-email" type="email" autoComplete="email" className="min-h-11" value={email} onChange={(e) => setEmail(e.target.value)} aria-invalid={!!errors.email} />
+                <Field label="E-mail" htmlFor="login-email" error={errors["email"]} hint="Demonstração: use um e-mail do painel, ex.: ana@demo.hf">
+                  <Input ref={emailRef} id="login-email" type="email" autoComplete="email" className="min-h-11" value={email} onChange={(e) => setEmail(e.target.value)} aria-invalid={!!errors["email"]} />
                 </Field>
-                <Field label="Senha" htmlFor="login-password" error={errors.password} hint="Na demonstração, qualquer senha não vazia funciona.">
-                  <Input id="login-password" type="password" autoComplete="current-password" className="min-h-11" value={password} onChange={(e) => setPassword(e.target.value)} aria-invalid={!!errors.password} />
+                <Field label="Senha" htmlFor="login-password" error={errors["password"]} hint="Na demonstração, qualquer senha não vazia funciona.">
+                  <Input id="login-password" type="password" autoComplete="current-password" className="min-h-11" value={password} onChange={(e) => setPassword(e.target.value)} aria-invalid={!!errors["password"]} />
                 </Field>
                 {serverError ? (
                   <p role="alert" className="rounded-lg bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">{serverError}</p>

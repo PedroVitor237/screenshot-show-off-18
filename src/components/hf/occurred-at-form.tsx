@@ -88,14 +88,14 @@ export function OccurredAtForm({ onConfirm, busy, serverError }: Props) {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid gap-4 sm:grid-cols-3">
-          <Field label="Data" htmlFor="occ-date" error={errors.date}>
-            <Input ref={refs.date} id="occ-date" type="date" className="min-h-11" value={wall.date} onChange={(e) => setWall({ ...wall, date: e.target.value })} aria-invalid={!!errors.date} />
+          <Field label="Data" htmlFor="occ-date" error={errors["date"]}>
+            <Input ref={refs.date} id="occ-date" type="date" className="min-h-11" value={wall.date} onChange={(e) => setWall({ ...wall, date: e.target.value })} aria-invalid={!!errors["date"]} />
           </Field>
-          <Field label="Hora" htmlFor="occ-time" error={errors.time} hint="Com segundos, ex.: 14:35:00">
-            <Input ref={refs.time} id="occ-time" type="time" step={1} className="min-h-11" value={wall.time} onChange={(e) => setWall({ ...wall, time: e.target.value })} aria-invalid={!!errors.time} />
+          <Field label="Hora" htmlFor="occ-time" error={errors["time"]} hint="Com segundos, ex.: 14:35:00">
+            <Input ref={refs.time} id="occ-time" type="time" step={1} className="min-h-11" value={wall.time} onChange={(e) => setWall({ ...wall, time: e.target.value })} aria-invalid={!!errors["time"]} />
           </Field>
-          <Field label="Fuso (offset)" htmlFor="occ-offset" error={errors.offset} hint="Formato ±HH:MM, ex.: -03:00">
-            <Input ref={refs.offset} id="occ-offset" className="min-h-11" value={offset} onChange={(e) => setOffset(e.target.value)} aria-invalid={!!errors.offset} />
+          <Field label="Fuso (offset)" htmlFor="occ-offset" error={errors["offset"]} hint="Formato ±HH:MM, ex.: -03:00">
+            <Input ref={refs.offset} id="occ-offset" className="min-h-11" value={offset} onChange={(e) => setOffset(e.target.value)} aria-invalid={!!errors["offset"]} />
           </Field>
         </div>
         {suggestions.length > 0 ? (
