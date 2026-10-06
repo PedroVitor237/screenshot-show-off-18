@@ -23,13 +23,13 @@ export function OccurredAtForm({ onConfirm, busy, serverError }: Props) {
   function validate(): string | null {
     const errs: Record<string, string> = {};
     const off = parseOffset(offset);
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(wall.date)) errs.date = "Informe uma data válida.";
-    if (!/^\d{2}:\d{2}(:\d{2})?$/.test(wall.time)) errs.time = "Informe uma hora válida (HH:MM:SS).";
-    if (!off.ok) errs.offset = off.error;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(wall.date)) errs["date = "Informe uma data válida.";
+    if (!/^\d{2}:\d{2}(:\d{2})?$/.test(wall.time)) errs["time = "Informe uma hora válida (HH:MM:SS).";
+    if (!off.ok) errs["offset = off.error;
     const iso = typeof toRFC3339(wall, off.ok ? off.minutes : 0) === "string" ? (toRFC3339(wall, off.ok ? off.minutes : 0) as string) : null;
-    if (iso === null && !errs.date && !errs.time) errs.date = "Esta data não existe no calendário.";
+    if (iso === null && !errs["date && !errs["time) errs["date = "Esta data não existe no calendário.";
     const inst = off.ok ? instantOf(wall, off.minutes) : null;
-    if (inst !== null && inst > Date.now()) errs.date = "A coleta não pode ser no futuro.";
+    if (inst !== null && inst > Date.now()) errs["date = "A coleta não pode ser no futuro.";
     setErrors(errs);
     const first = ["date", "time", "offset"].find((k) => errs[k]) as keyof typeof refs | undefined;
     if (first) {

@@ -36,10 +36,10 @@ function Register() {
   async function submit(ev: React.FormEvent) {
     ev.preventDefault();
     const errs: Record<string, string> = {};
-    if (firstName.trim().length < 1) errs.firstName = "Informe seu nome.";
-    if (lastName.trim().length < 1) errs.lastName = "Informe seu sobrenome.";
-    if (!/^\S+@\S+\.\S+$/.test(email)) errs.email = "Informe um e-mail válido.";
-    if (password.length < 8) errs.password = "A senha deve ter pelo menos 8 caracteres.";
+    if (firstName.trim().length < 1) errs["firstName = "Informe seu nome.";
+    if (lastName.trim().length < 1) errs["lastName = "Informe seu sobrenome.";
+    if (!/^\S+@\S+\.\S+$/.test(email)) errs["email = "Informe um e-mail válido.";
+    if (password.length < 8) errs["password = "A senha deve ter pelo menos 8 caracteres.";
     setErrors(errs);
     if (Object.keys(errs).length) {
       firstRef.current?.focus();

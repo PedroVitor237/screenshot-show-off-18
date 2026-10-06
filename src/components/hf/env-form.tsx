@@ -40,19 +40,19 @@ export function EnvForm({ busy, serverError, onConfirm }: Props) {
   function validate(): boolean {
     const errs: Record<string, string> = {};
     const inf = num(raw.infiltration ?? String(v.soil.infiltrationRateMmPerHour));
-    if (inf === null || Number.isNaN(inf) || inf < 0) errs.infiltration = "Informe um número maior ou igual a zero.";
+    if (inf === null || Number.isNaN(inf) || inf < 0) errs["infiltration = "Informe um número maior ou igual a zero.";
     const cover = num(raw.cover ?? String(v.vegetation.vegetationCoverPercent));
-    if (cover === null || Number.isNaN(cover) || cover < 0 || cover > 100) errs.cover = "Informe um percentual entre 0 e 100.";
+    if (cover === null || Number.isNaN(cover) || cover < 0 || cover > 100) errs["cover = "Informe um percentual entre 0 e 100.";
     const depth = num(raw.depth ?? "");
-    if (Number.isNaN(depth!) || (depth !== null && depth < 0)) errs.depth = "Profundidade inválida.";
+    if (Number.isNaN(depth!) || (depth !== null && depth < 0)) errs["depth = "Profundidade inválida.";
     const exposed = num(raw.exposed ?? "");
-    if (Number.isNaN(exposed!) || (exposed !== null && (exposed < 0 || exposed > 100))) errs.exposed = "Percentual entre 0 e 100.";
+    if (Number.isNaN(exposed!) || (exposed !== null && (exposed < 0 || exposed > 100))) errs["exposed = "Percentual entre 0 e 100.";
     const drain = num(raw.drain ?? "");
-    if (Number.isNaN(drain!) || (drain !== null && drain < 0)) errs.drain = "Valor inválido.";
+    if (Number.isNaN(drain!) || (drain !== null && drain < 0)) errs["drain = "Valor inválido.";
     const elev = num(raw.elev ?? "");
-    if (Number.isNaN(elev!)) errs.elev = "Valor inválido.";
+    if (Number.isNaN(elev!)) errs["elev = "Valor inválido.";
     const slope = num(raw.slope ?? "");
-    if (Number.isNaN(slope!) || (slope !== null && (slope < 0 || slope > 100))) errs.slope = "Declividade entre 0 e 100%.";
+    if (Number.isNaN(slope!) || (slope !== null && (slope < 0 || slope > 100))) errs["slope = "Declividade entre 0 e 100%.";
     setErrors(errs);
     if (Object.keys(errs).length) {
       document.getElementById(`env-${Object.keys(errs)[0]}`)?.focus();

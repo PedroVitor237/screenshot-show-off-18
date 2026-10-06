@@ -21,8 +21,8 @@ export function AreaMap({
   height = 360,
 }: {
   points: MapPoint[];
-  onPick?: (lat: number, lng: number) => void;
-  picked?: { latitude: number; longitude: number } | null;
+  onPick?: ((lat: number, lng: number) => void) | undefined;
+  picked?: { latitude: number; longitude: number } | null | undefined;
   height?: number;
 }) {
   const s = useScenario();
