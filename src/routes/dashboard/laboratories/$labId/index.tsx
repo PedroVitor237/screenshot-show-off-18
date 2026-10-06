@@ -60,7 +60,7 @@ function LabSummary() {
           <Loading />
         ) : history.isError ? (
           <ErrorState onRetry={() => void history.refetch()} />
-        ) : history.data!.pages[0].items.length === 0 ? (
+        ) : history.data!.pages[0]!.items.length === 0 ? (
           <EmptyState title="Nenhum evento ainda" description="Crie uma área ou confirme uma coleta para ver o histórico." />
         ) : (
           <>

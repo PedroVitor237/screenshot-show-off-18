@@ -56,7 +56,7 @@ function LabMap() {
                   </span>
                   {a.confirmedCollections[0] ? (
                     <span className="block text-xs text-muted-foreground">
-                      Última coleta: {formatDeclared(a.confirmedCollections[a.confirmedCollections.length - 1].occurredAt)}
+                      Última coleta: {formatDeclared(a.confirmedCollections[a.confirmedCollections.length - 1]!.occurredAt)}
                     </span>
                   ) : null}
                 </Link>
