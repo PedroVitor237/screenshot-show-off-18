@@ -24,11 +24,14 @@ export function RequireSession({ children }: { children: ReactNode }) {
   const s = useScenario();
   const navigate = useNavigate();
   const me = useMe();
-  const mustLeave = !s.session || me.isError;
+  // A sessão de demonstração só existe no navegador: evita divergência de hidratação.
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
+  const mustLeave = hydrated && (!s.session || me.isError);
   useEffect(() => {
     if (mustLeave) void navigate({ to: "/login" });
   }, [mustLeave, navigate]);
-  if (mustLeave) return null;
+  if (!hydrated || mustLeave) return null;
   if (!me.data) return <div className="p-8 text-sm text-muted-foreground" role="status">Carregando sessão…</div>;
   return <>{children}</>;
 }
