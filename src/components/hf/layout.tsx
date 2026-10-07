@@ -1,5 +1,5 @@
 // Cascas de layout: barra superior e menu lateral do laboratório.
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link, useNavigate, useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { LayoutDashboard, LogOut, Map as MapIcon, Menu, Users, Waypoints } from "lucide-react";
@@ -24,14 +24,11 @@ export function RequireSession({ children }: { children: ReactNode }) {
   const s = useScenario();
   const navigate = useNavigate();
   const me = useMe();
-  if (!s.session) {
-    void navigate({ to: "/login" });
-    return null;
-  }
-  if (me.isError) {
-    void navigate({ to: "/login" });
-    return null;
-  }
+  const mustLeave = !s.session || me.isError;
+  useEffect(() => {
+    if (mustLeave) void navigate({ to: "/login" });
+  }, [mustLeave, navigate]);
+  if (mustLeave) return null;
   if (!me.data) return <div className="p-8 text-sm text-muted-foreground" role="status">Carregando sessão…</div>;
   return <>{children}</>;
 }
