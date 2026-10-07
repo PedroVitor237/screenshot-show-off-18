@@ -45,7 +45,20 @@ let state: ScenarioState = {
 const listeners = new Set<() => void>();
 const PROFILE_KEY = "hf-demo-profile"; // apenas a chave do perfil de demonstração, nunca credenciais
 
+let restored = false;
+const SERVER_STATE = state; // instantâneo estável para hidratação SSR
+
 export function getScenario() {
+  // Restauração síncrona na primeira leitura no navegador (deep links).
+  if (!restored && typeof window !== "undefined") {
+    restored = true;
+    try {
+      const raw = sessionStorage.getItem(PROFILE_KEY);
+      if (raw) state = { ...state, session: JSON.parse(raw) };
+    } catch {
+      /* ignore */
+    }
+  }
   return state;
 }
 export function setScenario(patch: Partial<ScenarioState>) {
@@ -74,5 +87,5 @@ function subscribe(l: () => void) {
   return () => listeners.delete(l);
 }
 export function useScenario() {
-  return useSyncExternalStore(subscribe, getScenario, getScenario);
+  return useSyncExternalStore(subscribe, getScenario, () => SERVER_STATE);
 }
