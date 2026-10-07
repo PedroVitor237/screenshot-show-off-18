@@ -71,20 +71,20 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardCollectsRoute = DashboardCollectsRouteImport.update({
-  id: '/dashboard/collects',
-  path: '/dashboard/collects',
-  getParentRoute: () => rootRouteImport,
+  id: '/collects',
+  path: '/collects',
+  getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardAdminUsersRoute = DashboardAdminUsersRouteImport.update({
-  id: '/dashboard/admin/users',
-  path: '/dashboard/admin/users',
-  getParentRoute: () => rootRouteImport,
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardLaboratoriesLabIdRoute =
   DashboardLaboratoriesLabIdRouteImport.update({
-    id: '/dashboard/laboratories/$labId',
-    path: '/dashboard/laboratories/$labId',
-    getParentRoute: () => rootRouteImport,
+    id: '/laboratories/$labId',
+    path: '/laboratories/$labId',
+    getParentRoute: () => DashboardRoute,
   } as any)
 const DashboardLaboratoriesLabIdIndexRoute =
   DashboardLaboratoriesLabIdIndexRouteImport.update({
@@ -287,10 +287,7 @@ export interface RootRouteChildren {
   LogoutRoute: typeof LogoutRoute
   RegisterRoute: typeof RegisterRoute
   WorkspaceRoute: typeof WorkspaceRoute
-  DashboardCollectsRoute: typeof DashboardCollectsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
-  DashboardAdminUsersRoute: typeof DashboardAdminUsersRoute
-  DashboardLaboratoriesLabIdRoute: typeof DashboardLaboratoriesLabIdRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -353,24 +350,24 @@ declare module '@tanstack/react-router' {
     }
     '/dashboard/collects': {
       id: '/dashboard/collects'
-      path: '/dashboard/collects'
+      path: '/collects'
       fullPath: '/dashboard/collects'
       preLoaderRoute: typeof DashboardCollectsRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof DashboardRoute
     }
     '/dashboard/admin/users': {
       id: '/dashboard/admin/users'
-      path: '/dashboard/admin/users'
+      path: '/admin/users'
       fullPath: '/dashboard/admin/users'
       preLoaderRoute: typeof DashboardAdminUsersRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof DashboardRoute
     }
     '/dashboard/laboratories/$labId': {
       id: '/dashboard/laboratories/$labId'
-      path: '/dashboard/laboratories/$labId'
+      path: '/laboratories/$labId'
       fullPath: '/dashboard/laboratories/$labId'
       preLoaderRoute: typeof DashboardLaboratoriesLabIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof DashboardRoute
     }
     '/dashboard/laboratories/$labId/': {
       id: '/dashboard/laboratories/$labId/'
@@ -448,79 +445,6 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
-interface DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteChildren {
-  DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRoute
-}
-
-const DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteChildren: DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteChildren =
-  {
-    DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRoute:
-      DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdEnvironmentalRoute,
-  }
-
-const DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteWithChildren =
-  DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRoute._addFileChildren(
-    DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteChildren,
-  )
-
-interface DashboardLaboratoriesLabIdAreasAreaIdRouteChildren {
-  DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteWithChildren
-  DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRoute
-}
-
-const DashboardLaboratoriesLabIdAreasAreaIdRouteChildren: DashboardLaboratoriesLabIdAreasAreaIdRouteChildren =
-  {
-    DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRoute:
-      DashboardLaboratoriesLabIdAreasAreaIdCollectionsCollectionIdRouteWithChildren,
-    DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRoute:
-      DashboardLaboratoriesLabIdAreasAreaIdCollectionsNewRoute,
-  }
-
-const DashboardLaboratoriesLabIdAreasAreaIdRouteWithChildren =
-  DashboardLaboratoriesLabIdAreasAreaIdRoute._addFileChildren(
-    DashboardLaboratoriesLabIdAreasAreaIdRouteChildren,
-  )
-
-interface DashboardLaboratoriesLabIdAreasRouteChildren {
-  DashboardLaboratoriesLabIdAreasAreaIdRoute: typeof DashboardLaboratoriesLabIdAreasAreaIdRouteWithChildren
-  DashboardLaboratoriesLabIdAreasNewRoute: typeof DashboardLaboratoriesLabIdAreasNewRoute
-}
-
-const DashboardLaboratoriesLabIdAreasRouteChildren: DashboardLaboratoriesLabIdAreasRouteChildren =
-  {
-    DashboardLaboratoriesLabIdAreasAreaIdRoute:
-      DashboardLaboratoriesLabIdAreasAreaIdRouteWithChildren,
-    DashboardLaboratoriesLabIdAreasNewRoute:
-      DashboardLaboratoriesLabIdAreasNewRoute,
-  }
-
-const DashboardLaboratoriesLabIdAreasRouteWithChildren =
-  DashboardLaboratoriesLabIdAreasRoute._addFileChildren(
-    DashboardLaboratoriesLabIdAreasRouteChildren,
-  )
-
-interface DashboardLaboratoriesLabIdRouteChildren {
-  DashboardLaboratoriesLabIdAreasRoute: typeof DashboardLaboratoriesLabIdAreasRouteWithChildren
-  DashboardLaboratoriesLabIdMapaRoute: typeof DashboardLaboratoriesLabIdMapaRoute
-  DashboardLaboratoriesLabIdMembrosRoute: typeof DashboardLaboratoriesLabIdMembrosRoute
-  DashboardLaboratoriesLabIdIndexRoute: typeof DashboardLaboratoriesLabIdIndexRoute
-}
-
-const DashboardLaboratoriesLabIdRouteChildren: DashboardLaboratoriesLabIdRouteChildren =
-  {
-    DashboardLaboratoriesLabIdAreasRoute:
-      DashboardLaboratoriesLabIdAreasRouteWithChildren,
-    DashboardLaboratoriesLabIdMapaRoute: DashboardLaboratoriesLabIdMapaRoute,
-    DashboardLaboratoriesLabIdMembrosRoute:
-      DashboardLaboratoriesLabIdMembrosRoute,
-    DashboardLaboratoriesLabIdIndexRoute: DashboardLaboratoriesLabIdIndexRoute,
-  }
-
-const DashboardLaboratoriesLabIdRouteWithChildren =
-  DashboardLaboratoriesLabIdRoute._addFileChildren(
-    DashboardLaboratoriesLabIdRouteChildren,
-  )
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
@@ -528,10 +452,7 @@ const rootRouteChildren: RootRouteChildren = {
   LogoutRoute: LogoutRoute,
   RegisterRoute: RegisterRoute,
   WorkspaceRoute: WorkspaceRoute,
-  DashboardCollectsRoute: DashboardCollectsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
-  DashboardAdminUsersRoute: DashboardAdminUsersRoute,
-  DashboardLaboratoriesLabIdRoute: DashboardLaboratoriesLabIdRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
