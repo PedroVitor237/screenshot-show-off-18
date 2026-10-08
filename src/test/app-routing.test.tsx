@@ -5,13 +5,14 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { routeTree } from "@/routeTree.gen";
 
-function renderAt(path: string) {
+async function renderAt(path: string) {
   const queryClient = new QueryClient();
   const router = createRouter({
     routeTree,
     context: { queryClient },
     history: createMemoryHistory({ initialEntries: [path] }),
   });
+  await router.load();
   return render(<RouterProvider router={router} />);
 }
 
@@ -26,7 +27,7 @@ afterEach(() => {
 // document.body rather than the render container.
 describe("App routing", () => {
   it("renders the index route", async () => {
-    renderAt("/");
+    await renderAt("/");
 
     await waitFor(() => expect(document.body.textContent?.length).toBeGreaterThan(0));
   });
@@ -34,7 +35,7 @@ describe("App routing", () => {
   it("renders the not-found route", async () => {
     vi.spyOn(console, "warn").mockImplementation(() => undefined);
 
-    renderAt("/this-route-does-not-exist");
+    await renderAt("/this-route-does-not-exist");
 
     await waitFor(() => expect(document.body.textContent).toContain("não encontrada"));
   });
