@@ -5,13 +5,14 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { routeTree } from "@/routeTree.gen";
 
-function renderAt(path: string) {
+async function renderAt(path: string) {
   const queryClient = new QueryClient();
   const router = createRouter({
     routeTree,
     context: { queryClient },
     history: createMemoryHistory({ initialEntries: [path] }),
   });
+  await router.load();
   return render(<RouterProvider router={router} />);
 }
 
@@ -22,18 +23,20 @@ afterEach(() => {
 
 // Assert only that the router mounts and paints, never page content:
 // routes are rewritten as the app is built and this must keep passing.
+// The root route renders a full document shell (html/body), so assert on
+// document.body rather than the render container.
 describe("App routing", () => {
   it("renders the index route", async () => {
-    const { container } = renderAt("/");
+    await renderAt("/");
 
-    await waitFor(() => expect(container.firstChild).not.toBeNull());
+    await waitFor(() => expect(document.body.textContent?.length).toBeGreaterThan(0));
   });
 
   it("renders the not-found route", async () => {
     vi.spyOn(console, "warn").mockImplementation(() => undefined);
 
-    const { container } = renderAt("/this-route-does-not-exist");
+    await renderAt("/this-route-does-not-exist");
 
-    await waitFor(() => expect(container.firstChild).not.toBeNull());
+    await waitFor(() => expect(document.body.textContent).toContain("não encontrada"));
   });
 });
