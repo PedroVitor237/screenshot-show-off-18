@@ -140,7 +140,7 @@ export function IhfrSection({ labId, areaId, collectionId, ctx }: Props) {
           <p className="text-sm text-muted-foreground">Nenhum diagnóstico vigente para esta coleta.</p>
         )}
 
-        {e && !e.eligible ? (
+        {e && !e.eligible && !d ? (
           <Alert variant="destructive">
             <AlertTitle>Dados insuficientes</AlertTitle>
             <AlertDescription>
